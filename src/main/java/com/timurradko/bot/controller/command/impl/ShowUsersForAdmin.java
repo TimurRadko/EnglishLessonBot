@@ -24,8 +24,8 @@ public class ShowUsersForAdmin implements Command {
     public void execute(Update update, EnglishLessonBot source) throws TelegramApiException {
         Long chatId = ChatUtil.readChatId(update);
         UserSession session = SessionManager.getSession(chatId);
-        ChatUtil.sendMessage(CHOOSE_USER, chatId, source);
         List<User> allUsers = userService.getAllUsers(chatId);
+        ChatUtil.sendMessage(CHOOSE_USER, chatId, source);
         session.setAllUsers(allUsers);
         String usersToString = UiEntityUtil.userToString(allUsers);
         ChatUtil.sendMessage(usersToString, update, source);

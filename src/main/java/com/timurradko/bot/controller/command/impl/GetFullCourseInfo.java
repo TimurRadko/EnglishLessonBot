@@ -27,6 +27,7 @@ public class GetFullCourseInfo implements Command {
         }
         String input = update.getMessage().getText();
         input = input.substring(1);
+
         int courseNumber = Integer.parseInt(input);
         Course course = allCourses.get(courseNumber - 1);
 

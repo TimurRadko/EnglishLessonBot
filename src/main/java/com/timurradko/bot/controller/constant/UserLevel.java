@@ -7,4 +7,5 @@ public interface UserLevel {
     String INTERMEDIATE = "Intermediate";
     String UPPER_INTERMEDIATE = "Upper-Intermediate";
     String ADVANCED = "Advanced";
+    String NOT_REGISTERED_USER = "not registered";
 }
