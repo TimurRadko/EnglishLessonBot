@@ -17,6 +17,7 @@ public class UserSession {
     private List<Question> allTestQuestion;
     private List<Answer> allAnswerForQuestion;
     private Question nextQuestion;
+    private Long IdForAdmin;
 
     public UserSession(User user) {
         this.user = user;
@@ -92,5 +93,13 @@ public class UserSession {
 
     public void setUserLevel(Integer userLevel) {
         this.userLevel = userLevel;
+    }
+
+    public Long getIdForAdmin() {
+        return IdForAdmin;
+    }
+
+    public void setIdForAdmin(Long idForAdmin) {
+        this.IdForAdmin = idForAdmin;
     }
 }

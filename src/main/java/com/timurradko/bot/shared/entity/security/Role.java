@@ -3,12 +3,13 @@ package com.timurradko.bot.shared.entity.security;
 import java.util.*;
 
 public enum Role {
-    ADMIN(2, Arrays.asList(Feature.VIEW_USERS,
+    ADMIN(2, Arrays.asList(Feature.SHOW_USERS_FOR_ADMIN,
             Feature.EDIT_USER,
-            Feature.BLOCK_USER,
             Feature.ADD_QUESTION,
             Feature.VIEW_ALL_TEST_QUESTIONS,
-            Feature.CHANGE_USER_LEVEL)),
+            Feature.CHANGE_USER_LEVEL,
+            Feature.CHANGE_USER_STATUS,
+            Feature.CHANGES_CHOOSE)),
     USER(1, new ArrayList<>()),
     BLOCKED(-1, new ArrayList<>());
 

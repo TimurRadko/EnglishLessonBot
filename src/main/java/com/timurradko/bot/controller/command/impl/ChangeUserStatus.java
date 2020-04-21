@@ -4,18 +4,16 @@ import com.timurradko.bot.controller.EnglishLessonBot;
 import com.timurradko.bot.controller.base.SessionManager;
 import com.timurradko.bot.controller.base.UserSession;
 import com.timurradko.bot.controller.command.Command;
-import com.timurradko.bot.controller.constant.UserLevel;
+import com.timurradko.bot.controller.constant.UserStatus;
 import com.timurradko.bot.controller.tool.ChatUtil;
 import com.timurradko.bot.service.ServiceFactory;
 import com.timurradko.bot.service.user.UserService;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-
-public class ChangeUserLevel implements Command {
+public class ChangeUserStatus implements Command {
     private UserService userService = ServiceFactory.getUserService();
-    static final String UNKNOWN_ERROR = "Unknown error";
-    private static final String NEW_USER_LEVEL = "New user level: ";
+    private static final String NEW_USER_STATUS = "New user status: ";
 
     @Override
     public void execute(Update update, EnglishLessonBot source) throws TelegramApiException {
@@ -24,32 +22,23 @@ public class ChangeUserLevel implements Command {
 
         String input = update.getMessage().getText();
         input = input.substring(1);
-        int levelNumber = Integer.parseInt(input);
+        int statusNumber = Integer.parseInt(input);
 
         Long chatIdFromAdmin = session.getIdForAdmin();
 
-        switch (levelNumber) {
+        switch (statusNumber) {
             case 1:
-                userService.changeUserLevel(chatIdFromAdmin, UserLevel.BEGINNER);
+                userService.changeUserStatus(chatIdFromAdmin, UserStatus.BLOCKED);
                 break;
             case 2:
-                userService.changeUserLevel(chatIdFromAdmin, UserLevel.ELEMENTARY);
+                userService.changeUserStatus(chatIdFromAdmin, UserStatus.ADMIN);
                 break;
             case 3:
-                userService.changeUserLevel(chatIdFromAdmin, UserLevel.PRE_INTERMEDIATE);
-                break;
-            case 4:
-                userService.changeUserLevel(chatIdFromAdmin, UserLevel.INTERMEDIATE);
-                break;
-            case 5:
-                userService.changeUserLevel(chatIdFromAdmin, UserLevel.UPPER_INTERMEDIATE);
-                break;
-            case 6:
-                userService.changeUserLevel(chatIdFromAdmin, UserLevel.ADVANCED);
+                userService.changeUserStatus(chatIdFromAdmin, UserStatus.USER);
                 break;
             default:
-                ChatUtil.sendMessage(UNKNOWN_ERROR, chatId, source);
+                ChatUtil.sendMessage(ChangeUserLevel.UNKNOWN_ERROR, chatId, source);
         }
-        ChatUtil.sendMessage(NEW_USER_LEVEL + userService.getUser(chatIdFromAdmin).getUserLevel(), chatId, source);
+        ChatUtil.sendMessage(NEW_USER_STATUS + userService.getUser(chatIdFromAdmin).getStatus(), chatId, source);
     }
 }

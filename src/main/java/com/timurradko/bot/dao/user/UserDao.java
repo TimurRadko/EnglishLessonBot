@@ -10,4 +10,5 @@ public interface UserDao {
     List<User> getAllUsers();
     void changeUserLevel(Long chatId, String userLevel);
     void chooseTheCourse(Long chatId, Integer courseId);
+    void changeUserStatus(Long chatId, String userStatus);
 }

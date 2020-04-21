@@ -14,6 +14,7 @@ public class UserDaoImpl implements UserDao {
     private static final String SELECT_ALL_USERS = "SELECT * FROM users;";
     private static final String CHANGE_USER_LEVEL = "UPDATE users SET user_level = ? WHERE user_id = ?;";
     private static final String CHOOSE_THE_COURSE = "UPDATE users SET course_id = ? WHERE user_id = ?;";
+    private static final String CHANGE_USER_STATUS = "UPDATE users SET user_status = ? WHERE user_id = ?;";
 
     @Override
     public User getUser(Long chatId) {
@@ -105,6 +106,24 @@ public class UserDaoImpl implements UserDao {
             connection = ConnectionManager.take();
             statement = connection.prepareStatement(CHOOSE_THE_COURSE);
             statement.setInt(1, courseId);
+            statement.setLong(2, chatId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionManager.close(statement, connection);
+        }
+    }
+
+    @Override
+    public void changeUserStatus(Long chatId, String userStatus) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = ConnectionManager.take();
+            statement = connection.prepareStatement(CHANGE_USER_STATUS);
+            statement.setString(1, userStatus);
             statement.setLong(2, chatId);
             statement.executeUpdate();
         } catch (SQLException e) {

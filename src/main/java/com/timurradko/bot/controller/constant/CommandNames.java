@@ -13,8 +13,11 @@ public interface CommandNames {
     String CHOOSE_ANSWER = "/choose_answer";
     String SHOW_QUESTION = "/show_question";
     String SHOW_TEST_RESULTS = "/show_test_results";
-    String CHANGE_USER_LEVEL = "/change_user_level";
     String SHOW_ALL_TEACHERS = "/show-all_teachers";
     String CHANGE_COURSE = "/change_course";
-    String CHOOSE_COURSE = "/choose-course";
+    String CHOOSE_COURSE = "/choose_course";
+    String EDIT_USER = "/edit_user";
+    String CHANGE_USER_LEVEL = "/change_user_level";
+    String CHANGE_USER_STATUS = "/change_user_status";
+    String CHANGES_CHOOSE = "/changes_choose";
 }

@@ -1,6 +1,5 @@
 package com.timurradko.bot.controller.tool;
 
-import com.google.inject.internal.cglib.core.$AbstractClassGenerator;
 import com.timurradko.bot.shared.entity.*;
 
 import java.util.Collection;
@@ -19,7 +18,6 @@ public class UiEntityUtil {
     private static final String TEACHER_NAME = "Mr. (Mrs.):   ";
     private static final String PRIMARY_LANGUAGE = "Primary language - ";
     private static final String START_LEVEL = "Recommended level of training: ";
-    private static final String ENROL_IN_COURSE = "Enroll in course";
 
     public static String coursesToShortString(Collection<Course> courses) {
         StringBuilder builder = new StringBuilder();
@@ -45,10 +43,14 @@ public class UiEntityUtil {
         return builder.toString();
     }
 
-    public static String usersToString(Collection<User> users) {
+    public static String userToString(Collection<User> users) {
         StringBuilder builder = new StringBuilder();
+        int i = 0;
         for (User user : users) {
-            builder.append(USER_INFORMATION)
+            builder.append("/")
+                    .append(++i)
+                    .append(DELIMITER3)
+                    .append(USER_INFORMATION)
                     .append("\n")
                     .append(USER_NAME)
                     .append(user.getUsername())
@@ -61,6 +63,28 @@ public class UiEntityUtil {
                     .append("\n")
                     .append("\n");
         }
+        return builder.toString();
+    }
+
+    public static String userToString(User user) {
+        StringBuilder builder = new StringBuilder();
+        int i = 0;
+        builder.append(USER_NAME)
+                .append(user.getUsername())
+                .append("\n")
+                .append("/")
+                .append(++i)
+                .append(DELIMITER3)
+                .append(USER_STATUS)
+                .append(user.getStatus())
+                .append("\n")
+                .append("/")
+                .append(++i)
+                .append(DELIMITER3)
+                .append(USER_LEVEL)
+                .append(user.getUserLevel())
+                .append("\n")
+                .append("\n");
         return builder.toString();
     }
 
@@ -102,6 +126,32 @@ public class UiEntityUtil {
                     .append(START_LEVEL)
                     .append(teacher.getStartLevel())
                     .append("\n")
+                    .append("\n");
+        }
+        return builder.toString();
+    }
+
+    public static String userLevelToString(Collection<String> userLevels) {
+        StringBuilder builder = new StringBuilder();
+        int i = 0;
+        for (String level : userLevels) {
+            builder.append("/")
+                    .append(++i)
+                    .append(DELIMITER3)
+                    .append(level)
+                    .append("\n");
+        }
+        return builder.toString();
+    }
+
+    public static String userStatusToString(Collection<String> userStatus) {
+        StringBuilder builder = new StringBuilder();
+        int i = 0;
+        for (String level : userStatus) {
+            builder.append("/")
+                    .append(++i)
+                    .append(DELIMITER3)
+                    .append(level)
                     .append("\n");
         }
         return builder.toString();

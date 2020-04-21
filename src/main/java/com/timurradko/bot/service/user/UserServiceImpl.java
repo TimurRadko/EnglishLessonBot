@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers(Long currentChatId) {
         User user = getUser(currentChatId);
-        if (!SecurityUtil.hasFeature(user, Feature.VIEW_USERS)) {
+        if (!SecurityUtil.hasFeature(user, Feature.SHOW_USERS_FOR_ADMIN)) {
             throw new PermissionDeniedException();
         }
         List<User> allUsers = userDao.getAllUsers();
@@ -46,5 +46,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void chooseTheCourse(Long chatId, Integer courseId) {
         userDao.chooseTheCourse(chatId, courseId);
+    }
+
+    @Override
+    public void changeUserStatus(Long chatId, String userStatus) {
+        userDao.changeUserStatus(chatId, userStatus);
     }
 }

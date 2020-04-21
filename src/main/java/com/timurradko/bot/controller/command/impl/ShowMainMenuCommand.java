@@ -13,6 +13,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class ShowMainMenuCommand implements Command {
             List<InlineKeyboardButton> buttons7 = Arrays.asList(
                     new InlineKeyboardButton(ALL_TEST_QUESTIONS).setCallbackData(CommandNames.SHOW_ALL_TEST_QUESTIONS)
             );
-            keyboard = Arrays.asList(buttons1, buttons2, buttons3, buttons4, buttons5, buttons6, buttons7);
+            keyboard = Arrays.asList(buttons2, buttons4, buttons5, buttons6, buttons7);
         }
 
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup(keyboard);

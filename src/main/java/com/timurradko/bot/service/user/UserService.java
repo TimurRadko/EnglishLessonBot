@@ -10,4 +10,5 @@ public interface UserService {
     List<User> getAllUsers(Long currentChatId);
     void changeUserLevel(Long chatId, String userLevel);
     void chooseTheCourse(Long chatId, Integer courseId);
+    void changeUserStatus(Long chatId, String userStatus);
 }

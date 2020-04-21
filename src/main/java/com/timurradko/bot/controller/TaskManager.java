@@ -29,9 +29,12 @@ public class TaskManager {
         COMMANDS.put(CommandNames.SHOW_MY_COURSE, new ShowMyCourse());
         COMMANDS.put(CommandNames.SHOW_TEST_RESULTS, new ShowTestResults());
         COMMANDS.put(CommandNames.CHANGE_USER_LEVEL, new ChangeUserLevel());
+        COMMANDS.put(CommandNames.CHANGE_USER_STATUS, new ChangeUserStatus());
         COMMANDS.put(CommandNames.SHOW_ALL_TEACHERS, new ShowAllTeachers());
         COMMANDS.put(CommandNames.CHANGE_COURSE, new ChangeCourse());
         COMMANDS.put(CommandNames.CHOOSE_COURSE, new ChooseCourse());
+        COMMANDS.put(CommandNames.EDIT_USER, new EditUser());
+        COMMANDS.put(CommandNames.CHANGES_CHOOSE, new ChangesChoose());
     }
 
     public void impl(String commandName, Update update, EnglishLessonBot source) throws TelegramApiException {
