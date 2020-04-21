@@ -1,9 +1,11 @@
 package com.timurradko.bot.controller.command.impl;
 
 import com.timurradko.bot.controller.EnglishLessonBot;
+import com.timurradko.bot.controller.TaskManager;
 import com.timurradko.bot.controller.base.SessionManager;
 import com.timurradko.bot.controller.base.UserSession;
 import com.timurradko.bot.controller.command.Command;
+import com.timurradko.bot.controller.constant.CommandNames;
 import com.timurradko.bot.controller.tool.ChatUtil;
 import com.timurradko.bot.controller.tool.UiEntityUtil;
 import com.timurradko.bot.service.ServiceFactory;
@@ -28,12 +30,17 @@ public class GetFullCourseInfo implements Command {
         String input = update.getMessage().getText();
         input = input.substring(1);
 
-        int courseNumber = Integer.parseInt(input);
-        Course course = allCourses.get(courseNumber - 1);
+        try {
+            int courseNumber = Integer.parseInt(input);
+            Course course = allCourses.get(courseNumber - 1);
 
-        Course fullCourse = courseService.getFullCourse(course.getCourseId());
-        String fullCourseMessage = UiEntityUtil.coursesToString(fullCourse);
-        ChatUtil.sendMessage(fullCourseMessage, chatId, source);
+            Course fullCourse = courseService.getFullCourse(course.getCourseId());
+            String fullCourseMessage = UiEntityUtil.coursesToString(fullCourse);
+            ChatUtil.sendMessage(fullCourseMessage, chatId, source);
+        } catch (RuntimeException e) {
+            Command showMenu = TaskManager.getCommand(CommandNames.SHOW_ALL_COURSES);
+            showMenu.execute(update, source);
+        }
 
     }
 }

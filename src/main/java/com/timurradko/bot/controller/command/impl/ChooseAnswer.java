@@ -6,6 +6,7 @@ import com.timurradko.bot.controller.base.SessionManager;
 import com.timurradko.bot.controller.base.UserSession;
 import com.timurradko.bot.controller.command.Command;
 import com.timurradko.bot.controller.constant.CommandNames;
+import com.timurradko.bot.controller.exception.UnknownCommandException;
 import com.timurradko.bot.controller.tool.ChatUtil;
 import com.timurradko.bot.shared.entity.Answer;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -25,14 +26,18 @@ public class ChooseAnswer implements Command {
 
         String input = update.getMessage().getText();
         input = input.substring(1);
-        int answerNumber = Integer.parseInt(input);
-        Answer answer = allAnswers.get(answerNumber - 1);
-        String correctness = answer.getCorrectness();
-        if (correctness.equals(TRUE)) {
-            session.setUserLevel(userLevel++);
-        }
+        try {
+            int answerNumber = Integer.parseInt(input);
+            Answer answer = allAnswers.get(answerNumber - 1);
+            String correctness = answer.getCorrectness();
+            if (correctness.equals(TRUE)) {
+                session.setUserLevel(userLevel++);
+            }
 
-        Command showQuestion = TaskManager.getCommand(CommandNames.SHOW_QUESTION);
-        showQuestion.execute(update, source);
+            Command showQuestion = TaskManager.getCommand(CommandNames.SHOW_QUESTION);
+            showQuestion.execute(update, source);
+        } catch (NumberFormatException e) {
+            throw new UnknownCommandException();
+        }
     }
 }

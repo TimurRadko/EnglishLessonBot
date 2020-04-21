@@ -8,6 +8,7 @@ import com.timurradko.bot.controller.command.Command;
 import com.timurradko.bot.controller.constant.CommandNames;
 import com.timurradko.bot.controller.constant.UserLevel;
 import com.timurradko.bot.controller.constant.UserStatus;
+import com.timurradko.bot.controller.exception.UnknownCommandException;
 import com.timurradko.bot.controller.tool.ChatUtil;
 import com.timurradko.bot.controller.tool.UiEntityUtil;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -28,24 +29,28 @@ public class ChangesChoose implements Command {
 
         String input = update.getMessage().getText();
         input = input.substring(1);
-        int chooseNumber = Integer.parseInt(input);
-        if (chooseNumber == 1) {
-            ChatUtil.sendMessage(CHOOSE_USER_STATUS, chatId, source);
-            List<String> userStatus = Arrays.asList(UserStatus.BLOCKED, UserStatus.ADMIN, UserStatus.USER);
-            String userStatusToString = UiEntityUtil.userStatusToString(userStatus);
-            ChatUtil.sendMessage(userStatusToString, chatId, source);
-            session.setNextCommand(TaskManager.getCommand(CommandNames.CHANGE_USER_STATUS));
-        } else {
-            ChatUtil.sendMessage(CHOOSE_USER_LEVEL, chatId, source);
-            List<String> userLevels = Arrays.asList(UserLevel.BEGINNER,
-                    UserLevel.ELEMENTARY,
-                    UserLevel.PRE_INTERMEDIATE,
-                    UserLevel.INTERMEDIATE,
-                    UserLevel.UPPER_INTERMEDIATE,
-                    UserLevel.ADVANCED);
-            String userLevelToString = UiEntityUtil.userLevelToString(userLevels);
-            ChatUtil.sendMessage(userLevelToString, chatId, source);
-            session.setNextCommand(TaskManager.getCommand(CommandNames.CHANGE_USER_LEVEL));
+        try {
+            int chooseNumber = Integer.parseInt(input);
+            if (chooseNumber == 1) {
+                ChatUtil.sendMessage(CHOOSE_USER_STATUS, chatId, source);
+                List<String> userStatus = Arrays.asList(UserStatus.BLOCKED, UserStatus.ADMIN, UserStatus.USER);
+                String userStatusToString = UiEntityUtil.userStatusToString(userStatus);
+                ChatUtil.sendMessage(userStatusToString, chatId, source);
+                session.setNextCommand(TaskManager.getCommand(CommandNames.CHANGE_USER_STATUS));
+            } else {
+                ChatUtil.sendMessage(CHOOSE_USER_LEVEL, chatId, source);
+                List<String> userLevels = Arrays.asList(UserLevel.BEGINNER,
+                        UserLevel.ELEMENTARY,
+                        UserLevel.PRE_INTERMEDIATE,
+                        UserLevel.INTERMEDIATE,
+                        UserLevel.UPPER_INTERMEDIATE,
+                        UserLevel.ADVANCED);
+                String userLevelToString = UiEntityUtil.userLevelToString(userLevels);
+                ChatUtil.sendMessage(userLevelToString, chatId, source);
+                session.setNextCommand(TaskManager.getCommand(CommandNames.CHANGE_USER_LEVEL));
+            }
+        } catch (NumberFormatException e) {
+            throw new UnknownCommandException();
         }
     }
 }

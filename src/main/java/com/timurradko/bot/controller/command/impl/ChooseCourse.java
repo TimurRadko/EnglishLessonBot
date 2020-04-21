@@ -1,7 +1,9 @@
 package com.timurradko.bot.controller.command.impl;
 
 import com.timurradko.bot.controller.EnglishLessonBot;
+import com.timurradko.bot.controller.TaskManager;
 import com.timurradko.bot.controller.command.Command;
+import com.timurradko.bot.controller.constant.CommandNames;
 import com.timurradko.bot.controller.tool.ChatUtil;
 import com.timurradko.bot.service.ServiceFactory;
 import com.timurradko.bot.service.course.CourseService;
@@ -20,10 +22,16 @@ public class ChooseCourse implements Command {
         Long chatId = ChatUtil.readChatId(update);
         String input = update.getMessage().getText();
         input = input.substring(1);
-        int courseNumber = Integer.parseInt(input);
-        userService.chooseTheCourse(chatId, courseNumber);
-        Integer courseId = userService.getUser(chatId).getCourseId();
-        Course course = courseService.getMyCourse(courseId);
-        ChatUtil.sendMessage(YOUR_CHOOSE + course.getTitle(), update, source);
+        try {
+            int courseNumber = Integer.parseInt(input);
+            userService.chooseTheCourse(chatId, courseNumber);
+            Integer courseId = userService.getUser(chatId).getCourseId();
+            Course course = courseService.getMyCourse(courseId);
+            ChatUtil.sendMessage(YOUR_CHOOSE + course.getTitle(), update, source);
+        } catch (NumberFormatException e) {
+            Command showQuestion = TaskManager.getCommand(CommandNames.CHANGE_COURSE);
+            showQuestion.execute(update, source);
+        }
+
     }
 }
