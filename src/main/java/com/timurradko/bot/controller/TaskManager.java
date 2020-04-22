@@ -35,6 +35,16 @@ public class TaskManager {
         COMMANDS.put(CommandNames.CHOOSE_COURSE, new ChooseCourse());
         COMMANDS.put(CommandNames.EDIT_USER, new EditUser());
         COMMANDS.put(CommandNames.CHANGES_CHOOSE, new ChangesChoose());
+        COMMANDS.put(CommandNames.ADD_NEW_COURSE, new AddNewCourse());
+        COMMANDS.put(CommandNames.ADMIN_CHANGE_COURSE, new AdminChangeCourse());
+        COMMANDS.put(CommandNames.EDIT_COURSE, new EditCourse());
+        COMMANDS.put(CommandNames.DELETE_COURSE, new DeleteCourse());
+        COMMANDS.put(CommandNames.CHANGE_PARAMETERS_COURSE, new ChangeParametersCourse());
+        COMMANDS.put(CommandNames.READ_COURSE_TITLE, new ReadCourseTitle());
+        COMMANDS.put(CommandNames.READ_COURSE_DESCRIPTION, new ReadCourseDescription());
+        COMMANDS.put(CommandNames.ADD_INFO_ABOUT_COURSE, new AddInfoAboutCourse());
+        COMMANDS.put(CommandNames.CHOOSE_COURSE_ACTION, new ChooseCourseAction());
+        COMMANDS.put(CommandNames.SELECT_COURSE_TO_DELETE, new SelectCourseToDelete());
     }
 
     public void impl(String commandName, Update update, EnglishLessonBot source) throws TelegramApiException {

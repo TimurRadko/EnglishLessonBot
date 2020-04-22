@@ -7,5 +7,6 @@ public interface CourseDao {
     List<Course> getAllCoursesShort();
     Course getMyCourseShort(int id);
     Course getFullCourse(int id);
-
+    void addNewCourse(String title, String description);
+    void deleteCourse(int id);
 }

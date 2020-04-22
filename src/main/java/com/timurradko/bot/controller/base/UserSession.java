@@ -18,6 +18,8 @@ public class UserSession {
     private List<Answer> allAnswerForQuestion;
     private Question nextQuestion;
     private Long IdForAdmin;
+    private String courseTitle;
+    private String courseDescription;
 
     public UserSession(User user) {
         this.user = user;
@@ -101,5 +103,21 @@ public class UserSession {
 
     public void setIdForAdmin(Long idForAdmin) {
         this.IdForAdmin = idForAdmin;
+    }
+
+    public String getCourseTitle() {
+        return courseTitle;
+    }
+
+    public void setCourseTitle(String courseTitle) {
+        this.courseTitle = courseTitle;
+    }
+
+    public String getCourseDescription() {
+        return courseDescription;
+    }
+
+    public void setCourseDescription(String courseDescription) {
+        this.courseDescription = courseDescription;
     }
 }

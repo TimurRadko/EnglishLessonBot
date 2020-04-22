@@ -131,27 +131,14 @@ public class UiEntityUtil {
         return builder.toString();
     }
 
-    public static String userLevelToString(Collection<String> userLevels) {
+    public static String valueToString(Collection<String> values) {
         StringBuilder builder = new StringBuilder();
         int i = 0;
-        for (String level : userLevels) {
+        for (String value : values) {
             builder.append("/")
                     .append(++i)
                     .append(DELIMITER3)
-                    .append(level)
-                    .append("\n");
-        }
-        return builder.toString();
-    }
-
-    public static String userStatusToString(Collection<String> userStatus) {
-        StringBuilder builder = new StringBuilder();
-        int i = 0;
-        for (String level : userStatus) {
-            builder.append("/")
-                    .append(++i)
-                    .append(DELIMITER3)
-                    .append(level)
+                    .append(value)
                     .append("\n");
         }
         return builder.toString();

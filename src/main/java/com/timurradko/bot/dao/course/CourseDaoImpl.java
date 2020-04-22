@@ -13,6 +13,8 @@ public class CourseDaoImpl implements CourseDao{
     private static final String SELECT_FULL_INFORMATION = "SELECT * FROM courses WHERE course_id = ?;";
     private static final String SHOW_MY_COURSE = "SELECT * FROM courses cs " +
             "JOIN users us ON us.course_id = cs.course_id WHERE us.course_id = ?;";
+    private static final String ADD_NEW_COURSE = "INSERT INTO courses(title, description) VALUES (?, ?);";
+    private static final String DELETE_COURSE = "DELETE FROM courses WHERE course_id = ?;";
 
     @Override
     public List<Course> getAllCoursesShort() {
@@ -73,5 +75,40 @@ public class CourseDaoImpl implements CourseDao{
             ConnectionManager.close(statement,connection);
         }
         return course;
+    }
+
+    @Override
+    public void addNewCourse(String title, String description) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = ConnectionManager.take();
+            statement = connection.prepareStatement(ADD_NEW_COURSE);
+            statement.setString(1,title);
+            statement.setString(2,description);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionManager.close(statement,connection);
+        }
+    }
+
+    @Override
+    public void deleteCourse(int id) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = ConnectionManager.take();
+            statement = connection.prepareStatement(DELETE_COURSE);
+            statement.setInt(1,id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionManager.close(statement,connection);
+        }
     }
 }

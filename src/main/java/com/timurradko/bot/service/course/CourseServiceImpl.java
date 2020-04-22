@@ -25,4 +25,13 @@ public class CourseServiceImpl implements CourseService {
         return courseDao.getFullCourse(id);
     }
 
+    @Override
+    public void addNewCourse(String title, String description) {
+        courseDao.addNewCourse(title, description);
+    }
+
+    @Override
+    public void deleteCourse(int id) {
+        courseDao.deleteCourse(id);
+    }
 }

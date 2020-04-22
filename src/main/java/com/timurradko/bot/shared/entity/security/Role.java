@@ -9,7 +9,16 @@ public enum Role {
             Feature.VIEW_ALL_TEST_QUESTIONS,
             Feature.CHANGE_USER_LEVEL,
             Feature.CHANGE_USER_STATUS,
-            Feature.CHANGES_CHOOSE)),
+            Feature.CHANGES_CHOOSE,
+            Feature.EDIT_COURSE,
+            Feature.ADD_NEW_COURSE,
+            Feature.ADMIN_CHANGE_COURSE,
+            Feature.ADD_INFO_ABOUT_COURSE,
+            Feature.CHOOSE_COURSE_ACTION,
+            Feature.DELETE_COURSE,
+            Feature.READ_COURSE_DESCRIPTION,
+            Feature.READ_COURSE_TITLE,
+            Feature.SELECT_COURSE_TO_DELETE)),
     USER(1, new ArrayList<>()),
     BLOCKED(-1, new ArrayList<>());
 

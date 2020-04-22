@@ -29,12 +29,13 @@ public class ChangesChoose implements Command {
 
         String input = update.getMessage().getText();
         input = input.substring(1);
+
         try {
             int chooseNumber = Integer.parseInt(input);
             if (chooseNumber == 1) {
                 ChatUtil.sendMessage(CHOOSE_USER_STATUS, chatId, source);
                 List<String> userStatus = Arrays.asList(UserStatus.BLOCKED, UserStatus.ADMIN, UserStatus.USER);
-                String userStatusToString = UiEntityUtil.userStatusToString(userStatus);
+                String userStatusToString = UiEntityUtil.valueToString(userStatus);
                 ChatUtil.sendMessage(userStatusToString, chatId, source);
                 session.setNextCommand(TaskManager.getCommand(CommandNames.CHANGE_USER_STATUS));
             } else {
@@ -45,7 +46,7 @@ public class ChangesChoose implements Command {
                         UserLevel.INTERMEDIATE,
                         UserLevel.UPPER_INTERMEDIATE,
                         UserLevel.ADVANCED);
-                String userLevelToString = UiEntityUtil.userLevelToString(userLevels);
+                String userLevelToString = UiEntityUtil.valueToString(userLevels);
                 ChatUtil.sendMessage(userLevelToString, chatId, source);
                 session.setNextCommand(TaskManager.getCommand(CommandNames.CHANGE_USER_LEVEL));
             }

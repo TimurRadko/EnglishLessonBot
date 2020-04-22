@@ -6,6 +6,7 @@ import com.timurradko.bot.controller.base.SessionManager;
 import com.timurradko.bot.controller.base.UserSession;
 import com.timurradko.bot.controller.command.Command;
 import com.timurradko.bot.controller.constant.CommandNames;
+import com.timurradko.bot.controller.constant.MessageForAdmin;
 import com.timurradko.bot.controller.tool.ChatUtil;
 import com.timurradko.bot.controller.tool.UiEntityUtil;
 import com.timurradko.bot.service.ServiceFactory;
@@ -21,7 +22,6 @@ import java.util.List;
 
 public class EditUser implements Command {
     private UserService userService = ServiceFactory.getUserService();
-    private static final String AVAILABLE_FIELDS = "Select field to change: ";
 
     @Override
     public void execute(Update update, EnglishLessonBot source) throws TelegramApiException {
@@ -34,7 +34,7 @@ public class EditUser implements Command {
             throw new PermissionDeniedException();
         }
 
-        ChatUtil.sendMessage(AVAILABLE_FIELDS, chatId, source);
+        ChatUtil.sendMessage(MessageForAdmin.AVAILABLE_FIELDS, chatId, source);
         List<User> allUsers = session.getAllUsers();
         if (allUsers == null) {
             allUsers = userService.getAllUsers(chatId);

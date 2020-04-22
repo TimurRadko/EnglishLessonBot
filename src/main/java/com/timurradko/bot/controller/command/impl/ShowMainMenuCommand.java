@@ -13,7 +13,6 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,6 +53,9 @@ public class ShowMainMenuCommand implements Command {
         User user = session.getUser();
         Role role = user.getRole();
         if (Role.ADMIN.equals(role)) {
+            buttons5 = Arrays.asList(
+                    new InlineKeyboardButton(CHANGE_THE_COURSE).setCallbackData(CommandNames.ADMIN_CHANGE_COURSE)
+            );
             List<InlineKeyboardButton> buttons6 = Arrays.asList(
                     new InlineKeyboardButton(MANAGE_USERS).setCallbackData(CommandNames.SHOW_USERS_FOR_ADMIN));
             List<InlineKeyboardButton> buttons7 = Arrays.asList(

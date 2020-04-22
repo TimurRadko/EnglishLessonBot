@@ -7,4 +7,6 @@ public interface CourseService {
     List<Course> getAllCourses();
     Course getMyCourse(int id);
     Course getFullCourse(int id);
+    void addNewCourse(String title, String description);
+    void deleteCourse(int id);
 }

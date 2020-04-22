@@ -9,26 +9,25 @@ import com.timurradko.bot.controller.constant.CommandNames;
 import com.timurradko.bot.controller.tool.ChatUtil;
 import com.timurradko.bot.controller.tool.UiEntityUtil;
 import com.timurradko.bot.service.ServiceFactory;
-import com.timurradko.bot.service.user.UserService;
-import com.timurradko.bot.shared.entity.User;
+import com.timurradko.bot.service.course.CourseService;
+import com.timurradko.bot.shared.entity.Course;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.List;
 
-public class ShowUsersForAdmin implements Command {
-    private UserService userService = ServiceFactory.getUserService();
-    private static final String CHOOSE_USER = "Which user data to edit:\n";
+public class SelectCourseToDelete implements Command {
+    private CourseService courseService = ServiceFactory.getCourseService();
+    private static final String SELECT_COURSE_TO_DELETE = "Please, select the course to delete\n";
 
     @Override
     public void execute(Update update, EnglishLessonBot source) throws TelegramApiException {
         Long chatId = ChatUtil.readChatId(update);
         UserSession session = SessionManager.getSession(chatId);
-        List<User> allUsers = userService.getAllUsers(chatId);
-        ChatUtil.sendMessage(CHOOSE_USER, chatId, source);
-        session.setAllUsers(allUsers);
-        String usersToString = UiEntityUtil.userToString(allUsers);
-        ChatUtil.sendMessage(usersToString, update, source);
-        session.setNextCommand(TaskManager.getCommand(CommandNames.EDIT_USER));
+        ChatUtil.sendMessage(SELECT_COURSE_TO_DELETE, chatId, source);
+        List<Course> allCourses =  courseService.getAllCourses();
+        String stringAllCourses = UiEntityUtil.coursesToShortString(allCourses);
+        ChatUtil.sendMessage(stringAllCourses, chatId, source);
+        session.setNextCommand(TaskManager.getCommand(CommandNames.DELETE_COURSE));
     }
 }

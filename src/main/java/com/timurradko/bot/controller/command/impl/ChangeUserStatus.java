@@ -4,6 +4,7 @@ import com.timurradko.bot.controller.EnglishLessonBot;
 import com.timurradko.bot.controller.base.SessionManager;
 import com.timurradko.bot.controller.base.UserSession;
 import com.timurradko.bot.controller.command.Command;
+import com.timurradko.bot.controller.constant.MessageForAdmin;
 import com.timurradko.bot.controller.constant.UserStatus;
 import com.timurradko.bot.controller.tool.ChatUtil;
 import com.timurradko.bot.service.ServiceFactory;
@@ -17,7 +18,6 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class ChangeUserStatus implements Command {
     private UserService userService = ServiceFactory.getUserService();
-    private static final String NEW_USER_STATUS = "New user status: ";
 
     @Override
     public void execute(Update update, EnglishLessonBot source) throws TelegramApiException {
@@ -47,8 +47,9 @@ public class ChangeUserStatus implements Command {
                 userService.changeUserStatus(chatIdFromAdmin, UserStatus.USER);
                 break;
             default:
-                ChatUtil.sendMessage(ChangeUserLevel.UNKNOWN_ERROR, chatId, source);
+                ChatUtil.sendMessage(MessageForAdmin.UNKNOWN_ERROR, chatId, source);
         }
-        ChatUtil.sendMessage(NEW_USER_STATUS + userService.getUser(chatIdFromAdmin).getStatus(), chatId, source);
+        String userStatus = userService.getUser(chatIdFromAdmin).getStatus();
+        ChatUtil.sendMessage(MessageForAdmin.NEW_USER_STATUS + userStatus, chatId, source);
     }
 }
