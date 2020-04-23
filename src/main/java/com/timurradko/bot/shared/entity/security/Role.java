@@ -18,7 +18,8 @@ public enum Role {
             Feature.DELETE_COURSE,
             Feature.READ_COURSE_DESCRIPTION,
             Feature.READ_COURSE_TITLE,
-            Feature.SELECT_COURSE_TO_DELETE)),
+            Feature.SELECT_COURSE_TO_DELETE,
+            Feature.CHANGE_PARAMETERS_COURSE)),
     USER(1, new ArrayList<>()),
     BLOCKED(-1, new ArrayList<>());
 

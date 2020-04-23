@@ -5,5 +5,7 @@ public interface MessageForAdmin {
     String UNKNOWN_ERROR = "Unknown error";
     String NEW_USER_LEVEL = "New user level: ";
     String NEW_USER_STATUS = "New user status: ";
-    String WE_ARE_WORKING_ON_IT = "We are working on it";
+    String WE_ARE_WORKING_ON_IT = "We are working on it!";
+    String ERROR_COMMAND = "Incorrect place to enter command.";
+    String COMMAND = "/";
 }
